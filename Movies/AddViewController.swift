@@ -31,6 +31,8 @@ class AddViewController: UIViewController {
             movie?.genre = genre.text
         }
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.storeMovieArray()
         
         self.navigationController?.popViewController(animated: true)
     }

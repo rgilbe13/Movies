@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Movie {
+class Movie: NSObject, NSCoding {
     var name: String?
     var year: String?
     var director: String?
@@ -22,4 +22,36 @@ class Movie {
         rating = r
         genre = g
     }
+    required init?(coder aDecoder: NSCoder) {
+        if let s = aDecoder.decodeObject(forKey: "name") as?
+            String {
+            name = s
+        }
+        if let s = aDecoder.decodeObject(forKey: "year") as?
+            String {
+            year = s
+        }
+        if let s = aDecoder.decodeObject(forKey: "director") as?
+            String {
+            director = s
+        }
+        if let s = aDecoder.decodeObject(forKey: "rating") as?
+            String {
+            rating = s
+        }
+        if let s = aDecoder.decodeObject(forKey: "genre") as?
+            String {
+            genre = s
+        }
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(year, forKey: "year")
+        aCoder.encode(director, forKey: "director")
+        aCoder.encode(rating, forKey: "rating")
+        aCoder.encode(genre, forKey: "genre")
+    }
+    
+    
 }

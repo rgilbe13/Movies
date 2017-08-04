@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        loadMovieArray()
+        
         let splitViewController = window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
@@ -56,6 +58,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             return true
         }
         return false
+    }
+    
+    func storeMovieArray() {
+        let defaults = UserDefaults.standard
+        let data = NSKeyedArchiver.archivedData(withRootObject: moviesArray)
+        defaults.set(data, forKey: "stored_movie_data")
+        defaults.synchronize()
+    }
+    
+    func loadMovieArray() {
+        if let storedArray = UserDefaults.standard.object(forKey: "stored_movie_data")  as? NSData {
+            moviesArray = (NSKeyedUnarchiver.unarchiveObject(with: storedArray as Data) as? [Movie])!
+        }
     }
 
 }

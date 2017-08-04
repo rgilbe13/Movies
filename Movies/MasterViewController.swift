@@ -101,6 +101,7 @@ class MasterViewController: UITableViewController {
         if editingStyle == .delete {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.moviesArray.remove(at: indexPath.row)
+            appDelegate.storeMovieArray()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
