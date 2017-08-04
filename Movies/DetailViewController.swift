@@ -9,16 +9,22 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-
+    
+    @IBOutlet weak var name: UILabel?
+    @IBOutlet weak var year: UILabel?
+    @IBOutlet weak var director: UILabel?
+    @IBOutlet weak var rating: UILabel?
+    @IBOutlet weak var genre: UILabel?
 
     func configureView() {
         // Update the user interface for the detail item.
         if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.description
-            }
+           self.title = detail.name
+            name?.text = detail.name
+            year?.text = detail.year
+            director?.text = detail.director
+            rating?.text = detail.rating
+            genre?.text = detail.genre
         }
     }
 
@@ -33,7 +39,7 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    var detailItem: NSDate? {
+    var detailItem: Movie? {
         didSet {
             // Update the view.
             configureView()

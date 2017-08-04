@@ -15,6 +15,9 @@
 		D42B84FE1F33E195006A47EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D42B84FC1F33E195006A47EF /* LaunchScreen.storyboard */; };
 		D42B85091F33E195006A47EF /* MoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42B85081F33E195006A47EF /* MoviesTests.swift */; };
 		D42B85141F33E196006A47EF /* MoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42B85131F33E196006A47EF /* MoviesUITests.swift */; };
+		D42B85221F33E1CC006A47EF /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42B85211F33E1CC006A47EF /* AddViewController.swift */; };
+		D42B85241F33E57B006A47EF /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42B85231F33E57B006A47EF /* Movie.swift */; };
+		D441A81A1F341D7300057CE0 /* CustomMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D441A8191F341D7300057CE0 /* CustomMovieCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		D42B850F1F33E196006A47EF /* MoviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42B85131F33E196006A47EF /* MoviesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesUITests.swift; sourceTree = "<group>"; };
 		D42B85151F33E196006A47EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D42B85211F33E1CC006A47EF /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		D42B85231F33E57B006A47EF /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		D441A8191F341D7300057CE0 /* CustomMovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMovieCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +106,12 @@
 			isa = PBXGroup;
 			children = (
 				D42B84F11F33E195006A47EF /* AppDelegate.swift */,
+				D441A8191F341D7300057CE0 /* CustomMovieCell.swift */,
 				D42B84F31F33E195006A47EF /* MasterViewController.swift */,
 				D42B84F51F33E195006A47EF /* DetailViewController.swift */,
 				D42B84F71F33E195006A47EF /* Main.storyboard */,
+				D42B85211F33E1CC006A47EF /* AddViewController.swift */,
+				D42B85231F33E57B006A47EF /* Movie.swift */,
 				D42B84FA1F33E195006A47EF /* Assets.xcassets */,
 				D42B84FC1F33E195006A47EF /* LaunchScreen.storyboard */,
 				D42B84FF1F33E195006A47EF /* Info.plist */,
@@ -264,7 +273,10 @@
 			files = (
 				D42B84F61F33E195006A47EF /* DetailViewController.swift in Sources */,
 				D42B84F41F33E195006A47EF /* MasterViewController.swift in Sources */,
+				D42B85221F33E1CC006A47EF /* AddViewController.swift in Sources */,
 				D42B84F21F33E195006A47EF /* AppDelegate.swift in Sources */,
+				D42B85241F33E57B006A47EF /* Movie.swift in Sources */,
+				D441A81A1F341D7300057CE0 /* CustomMovieCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +523,7 @@
 				D42B851A1F33E196006A47EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D42B851B1F33E196006A47EF /* Build configuration list for PBXNativeTarget "MoviesTests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +532,7 @@
 				D42B851D1F33E196006A47EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D42B851E1F33E196006A47EF /* Build configuration list for PBXNativeTarget "MoviesUITests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +541,7 @@
 				D42B85201F33E196006A47EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
