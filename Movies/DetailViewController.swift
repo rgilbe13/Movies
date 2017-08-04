@@ -38,6 +38,19 @@ class DetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editSeque" {
+            let controller = segue.destination as! AddViewController
+            controller.movie = detailItem
+            
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.configureView()
+    }
 
     var detailItem: Movie? {
         didSet {

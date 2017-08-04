@@ -80,6 +80,9 @@ class MasterViewController: UITableViewController {
         
         let object = appDelegate.moviesArray[indexPath.row]
         
+        cell.year.layer.cornerRadius = 10
+        cell.year.layer.masksToBounds = true
+        
         cell.name.text = object.name
         cell.year.text = object.year
         cell.rating.text = object.rating
