@@ -11,7 +11,7 @@ import UIKit
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var objects = [Any]()
+    var movies = MovieArrayManager()
 
 
     override func viewDidLoad() {
@@ -39,9 +39,6 @@ class MasterViewController: UITableViewController {
     }
 
     func insertNewObject(_ sender: Any) {
-       // objects.insert(NSDate(), at: 0)
-       // let indexPath = IndexPath(row: 0, section: 0)
-       // tableView.insertRows(at: [indexPath], with: .automatic)
         self.performSegue(withIdentifier: "addSeque", sender: self)
     }
 
@@ -50,14 +47,18 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                
-                let object = appDelegate.moviesArray[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object
+                controller.detailItem = movies.moviesArray[indexPath.row]
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
+        }
+        
+        if segue.identifier == "addSeque" {
+            let controller = (segue.destination as! UINavigationController).topViewController as! AddViewController
+            controller.detailItem = movies
+            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
         }
     }
 
@@ -69,16 +70,13 @@ class MasterViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return objects.count
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.moviesArray.count
+        return movies.moviesArray.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomMovieClass
-
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        let object = appDelegate.moviesArray[indexPath.row]
+        let object = movies.moviesArray[indexPath.row]
         
         cell.year.layer.cornerRadius = 10
         cell.year.layer.masksToBounds = true
@@ -99,9 +97,8 @@ class MasterViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.moviesArray.remove(at: indexPath.row)
-            appDelegate.storeMovieArray()
+            movies.moviesArray.remove(at: indexPath.row)
+            movies.storeMovieArray()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.

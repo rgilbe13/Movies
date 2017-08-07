@@ -17,12 +17,12 @@ class AddViewController: UIViewController {
     @IBOutlet weak var genre: UILabel!
     
     var movie: Movie?
+    var detailItem: MovieArrayManager?
     
     @IBAction func submit(_ sender: Any) {
         if movie == nil {
             movie = Movie(name: name.text!, year: year.text!, director: director.text!, rating: rating.text!, genre: genre.text!)
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.moviesArray.append(movie!)
+            detailItem?.moviesArray.append(movie!)
         } else {
             movie?.name = name.text
             movie?.year = year.text
@@ -31,9 +31,7 @@ class AddViewController: UIViewController {
             movie?.genre = genre.text
         }
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.storeMovieArray()
-        
+        detailItem?.storeMovieArray()
         self.navigationController?.popViewController(animated: true)
     }
     

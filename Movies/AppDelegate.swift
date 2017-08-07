@@ -12,13 +12,9 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
-    
-    var moviesArray = [Movie]()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        loadMovieArray()
-        
         let splitViewController = window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
@@ -59,19 +55,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
         return false
     }
-    
-    func storeMovieArray() {
-        let defaults = UserDefaults.standard
-        let data = NSKeyedArchiver.archivedData(withRootObject: moviesArray)
-        defaults.set(data, forKey: "stored_movie_data")
-        defaults.synchronize()
-    }
-    
-    func loadMovieArray() {
-        if let storedArray = UserDefaults.standard.object(forKey: "stored_movie_data")  as? NSData {
-            moviesArray = (NSKeyedUnarchiver.unarchiveObject(with: storedArray as Data) as? [Movie])!
-        }
-    }
-
 }
 
+
+// split out as model
+// movieArrayManager - inst by masterviewcontroller
+// bug fix
+// web service to serve up json of movies
+// refactor to read from file and shove the write into the background
+// refactor to read(write) from json in the background
+// write ui test case for bug
