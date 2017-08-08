@@ -251,6 +251,7 @@
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vXa-2M-Mzx">
                                         <rect key="frame" x="0.0" y="41.5" width="343" height="42"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Name" label="Name"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -263,6 +264,7 @@
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NCG-rw-Vi5">
                                         <rect key="frame" x="0.0" y="125" width="343" height="41.5"/>
+                                        <accessibility key="accessibilityConfiguration" label="Year"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -275,6 +277,7 @@
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="64e-H3-xP0">
                                         <rect key="frame" x="0.0" y="208" width="343" height="42"/>
+                                        <accessibility key="accessibilityConfiguration" label="Director"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -287,6 +290,7 @@
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T0s-t5-1eU">
                                         <rect key="frame" x="0.0" y="291.5" width="343" height="41.5"/>
+                                        <accessibility key="accessibilityConfiguration" label="Rating"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -299,6 +303,7 @@
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YIK-Q6-ah4">
                                         <rect key="frame" x="0.0" y="375" width="343" height="41.5"/>
+                                        <accessibility key="accessibilityConfiguration" label="Genre"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -306,13 +311,14 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lb3-Yg-nqO">
                                         <rect key="frame" x="0.0" y="416.5" width="343" height="41.5"/>
                                         <color key="backgroundColor" red="0.37595009803771973" green="0.67852610349655151" blue="0.98556822538375854" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <accessibility key="accessibilityConfiguration" label="Done"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                         <state key="normal" title="Done">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="submit:" destination="qgq-9X-kWh" eventType="touchUpInside" id="5by-rB-v6K"/>
+                                            <segue destination="JEX-9P-axG" kind="show" identifier="showDetail" id="jMt-FX-0n9"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9D-V8-Kzv">
@@ -346,7 +352,7 @@
                     </view>
                     <connections>
                         <outlet property="director" destination="64e-H3-xP0" id="UcJ-US-4Cc"/>
-                        <outlet property="genre" destination="MIz-1g-VGW" id="CaO-ra-2vj"/>
+                        <outlet property="genre" destination="YIK-Q6-ah4" id="dmG-HJ-jdx"/>
                         <outlet property="name" destination="vXa-2M-Mzx" id="S1b-fA-pmZ"/>
                         <outlet property="rating" destination="T0s-t5-1eU" id="xxn-5e-4Mr"/>
                         <outlet property="year" destination="NCG-rw-Vi5" id="e5J-Oj-t3H"/>
@@ -374,7 +380,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="jMt-FX-0n9"/>
         <segue reference="1Ii-jI-tGm"/>
+        <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
 </document>

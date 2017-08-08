@@ -12,15 +12,26 @@ class MovieArrayManager {
     var moviesArray: [Movie] = []
     
     func storeMovieArray() {
-        let defaults = UserDefaults.standard
         let data = NSKeyedArchiver.archivedData(withRootObject: moviesArray)
-        defaults.set(data, forKey: "stored_movie_data")
-        defaults.synchronize()
+        let fileManager = FileManager.default
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+            let fileURL = documentDirectory.appendingPathComponent("movies")
+            try data.write(to: fileURL)
+        } catch {
+            print(error)
+        }
     }
     
     init() {
-        if let storedArray = UserDefaults.standard.object(forKey: "stored_movie_data")  as? NSData {
+        let fileManager = FileManager.default
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+            let fileURL = documentDirectory.appendingPathComponent("movies")
+            let storedArray = try Data(contentsOf: fileURL)
             moviesArray = (NSKeyedUnarchiver.unarchiveObject(with: storedArray as Data) as? [Movie])!
+        } catch {
+            print(error)
         }
     }
 }

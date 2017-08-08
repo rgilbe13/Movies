@@ -55,7 +55,7 @@ class MasterViewController: UITableViewController {
         }
         
         if segue.identifier == "addSeque" {
-            let controller = (segue.destination as! UINavigationController).topViewController as! AddViewController
+            let controller = (segue.destination ) as! AddViewController
             controller.detailItem = movies
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
