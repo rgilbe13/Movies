@@ -63,12 +63,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 // bug fix - Done
 // web service to serve up json of movies
 // refactor to read from file and shove the write into the background - Done
-// refactor to read(write) from json in the background
+// refactor to read(write) from json in the background - Done
 // write ui test case for bug - Done
 
 // proposal one page with scope - Done
 // 2. put file writes/ read in background - Done
-// 1. fix bug with passing data in seque on edit - write test case (file touch)
+// 1. fix bug with passing data in seque on edit - write test case (file touch) Bug Fixed, Missing Test Case
 // read from web - read in json
 // 3. core data
 // find the file itself - Done

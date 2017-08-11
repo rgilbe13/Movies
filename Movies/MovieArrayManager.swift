@@ -22,6 +22,41 @@ class MovieArrayManager {
         return JSONObjectArray
     }
     
+    func dicToMoviesArray(dic: Dictionary<String, Any>) -> [Movie] {
+        var name: String = ""
+        var year: String = ""
+        var rating: String = ""
+        var director: String = ""
+        var genre: String = ""
+        for (num, movie) in dic {
+            for (label, value) in movie as! Dictionary<String, Any> {
+                switch label
+                {
+                    case "name":
+                        name = value as! String
+                        break
+                    case "year":
+                        year = value as! String
+                        break
+                    case "director":
+                        director = value as! String
+                        break
+                    case "rating":
+                        rating = value as! String
+                        break
+                    case "genre":
+                        genre = value as! String
+                        break
+                    default:
+                        break
+                }
+            }
+            let tempMovie = Movie(name: name, year: year, director: director, rating: rating, genre: genre)
+            moviesArray.append(tempMovie)
+        }
+        return []
+    }
+    
     func storeMovieArray() {
         let data = JSONSerialization.isValidJSONObject(toJSON()) // true
         let fileManager = FileManager.default
@@ -45,12 +80,13 @@ class MovieArrayManager {
     }
     
     func loadFromFileManager(fileManager:FileManager) {
-    //let fileManager = FileManager.default
+    let fileManager = FileManager.default
         do {
             let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
             let fileURL = documentDirectory.appendingPathComponent("movies")
-            let storedArray = try Data(contentsOf: fileURL)
-            moviesArray = (NSKeyedUnarchiver.unarchiveObject(with: storedArray as Data) as? [Movie])!
+            let json = try Data(contentsOf: fileURL)
+            let dic = try JSONSerialization.jsonObject(with: json)
+            let temp = dicToMoviesArray(dic: dic as! Dictionary<String, Any>)
             //sleep(5)
         } catch {
         print(error)

@@ -21,7 +21,7 @@ class MoviesTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testFileSave() {
         let fm = FileManager.default
         do {
             let attr = try fm.attributesOfItem(atPath: "/etc/newsyslog.conf")
