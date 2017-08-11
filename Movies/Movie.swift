@@ -15,6 +15,7 @@ class Movie: NSObject, NSCoding {
     var rating: String?
     var genre: String?
     
+    
     init(name n: String, year y: String, director d: String, rating r: String, genre g: String) {
         name = n
         year = y
@@ -51,6 +52,18 @@ class Movie: NSObject, NSCoding {
         aCoder.encode(director, forKey: "director")
         aCoder.encode(rating, forKey: "rating")
         aCoder.encode(genre, forKey: "genre")
+    }
+    
+    func toJSON() -> Dictionary<String, Any> {
+        let JSONObject: [String:Any] = [
+            "name" : name as Any,
+            "year" : year as Any,
+            "director" : director as Any,
+            "rating" : rating as Any,
+            "genre" : genre as Any
+        ]
+        
+        return JSONObject
     }
     
     

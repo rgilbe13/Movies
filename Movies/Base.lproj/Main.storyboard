@@ -29,7 +29,7 @@
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">
             <objects>
-                <viewController title="Detail" id="JEX-9P-axG" customClass="DetailViewController" customModule="Movies" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" title="Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JEX-9P-axG" customClass="DetailViewController" customModule="Movies" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SYR-Wa-9uf"/>
                         <viewControllerLayoutGuide type="bottom" id="GAO-Cl-Wes"/>
@@ -126,7 +126,7 @@
                     <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="6ku-XM-Can">
                             <connections>
-                                <segue destination="qgq-9X-kWh" kind="show" identifier="editSeque" id="1Ii-jI-tGm"/>
+                                <segue destination="qgq-9X-kWh" kind="show" identifier="editSeque" id="Eme-f0-W2o"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -221,7 +221,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Movies" id="Zdf-7t-Un8"/>
                     <connections>
-                        <segue destination="qgq-9X-kWh" kind="show" identifier="addSeque" id="Nux-UY-K6b"/>
+                        <segue destination="qgq-9X-kWh" kind="show" identifier="addSeque" id="p5Z-Zu-gue"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
@@ -318,7 +318,7 @@
                                             <color key="titleShadowColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="JEX-9P-axG" kind="show" identifier="showDetail" id="jMt-FX-0n9"/>
+                                            <action selector="submit" destination="qgq-9X-kWh" eventType="touchUpInside" id="Qar-hg-POv"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9D-V8-Kzv">
@@ -350,6 +350,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="vAq-Ye-iMk" secondAttribute="trailing" id="g5m-eX-a0f"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="gua-v2-8Br"/>
                     <connections>
                         <outlet property="director" destination="64e-H3-xP0" id="UcJ-US-4Cc"/>
                         <outlet property="genre" destination="YIK-Q6-ah4" id="dmG-HJ-jdx"/>
@@ -360,7 +361,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XPz-vc-vX2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1452" y="-429"/>
+            <point key="canvasLocation" x="1962" y="-233"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r7l-gg-dq7">
@@ -380,8 +381,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="jMt-FX-0n9"/>
-        <segue reference="1Ii-jI-tGm"/>
+        <segue reference="p5Z-Zu-gue"/>
         <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -13,18 +13,20 @@ class MasterViewController: UITableViewController {
     var detailViewController: DetailViewController? = nil
     var movies = MovieArrayManager()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view, typically from a nib.
+        
         navigationItem.leftBarButtonItem = editButtonItem
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
-        if let split = splitViewController {
-            let controllers = split.viewControllers
-            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-        }
+
+    }
+    
+    func insertNewObject(_ sender: Any) {
+        self.performSegue(withIdentifier: "addSeque", sender: self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -38,17 +40,15 @@ class MasterViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func insertNewObject(_ sender: Any) {
-        self.performSegue(withIdentifier: "addSeque", sender: self)
-    }
-
     // MARK: - Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = movies.moviesArray[indexPath.row]
+                controller.detailMovieItem = movies.moviesArray[indexPath.row]
+                controller.movieManagerArray = movies
+                
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -57,6 +57,7 @@ class MasterViewController: UITableViewController {
         if segue.identifier == "addSeque" {
             let controller = (segue.destination ) as! AddViewController
             controller.detailItem = movies
+            controller.addType = "add"
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
         }
@@ -98,7 +99,12 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             movies.moviesArray.remove(at: indexPath.row)
-            movies.storeMovieArray()
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.movies.storeMovieArray()
+                DispatchQueue.main.async {
+                    
+                }
+            }
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.

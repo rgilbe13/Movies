@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
         guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
         guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
-        if topAsDetailController.detailItem == nil {
+        if topAsDetailController.detailMovieItem == nil {
             // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
             return true
         }
@@ -58,10 +58,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 }
 
 
-// split out as model
-// movieArrayManager - inst by masterviewcontroller
-// bug fix
+// split out as model - Done
+// movieArrayManager - inst by masterviewcontroller -Done
+// bug fix - Done
 // web service to serve up json of movies
-// refactor to read from file and shove the write into the background
+// refactor to read from file and shove the write into the background - Done
 // refactor to read(write) from json in the background
-// write ui test case for bug
+// write ui test case for bug - Done
+
+// proposal one page with scope - Done
+// 2. put file writes/ read in background - Done
+// 1. fix bug with passing data in seque on edit - write test case (file touch)
+// read from web - read in json
+// 3. core data
+// find the file itself - Done
+

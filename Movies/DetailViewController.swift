@@ -18,7 +18,7 @@ class DetailViewController: UIViewController {
 
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = detailItem {
+        if let detail = detailMovieItem {
            self.title = detail.name
             name?.text = detail.name
             year?.text = detail.year
@@ -42,7 +42,9 @@ class DetailViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editSeque" {
             let controller = segue.destination as! AddViewController
-            controller.movie = detailItem
+            controller.detailItem = movieManagerArray
+            controller.movie = detailMovieItem
+            controller.addType = "edit"
             
         }
     }
@@ -52,12 +54,14 @@ class DetailViewController: UIViewController {
         self.configureView()
     }
 
-    var detailItem: Movie? {
+    var detailMovieItem: Movie? {
         didSet {
             // Update the view.
             configureView()
         }
     }
+    
+    var movieManagerArray: MovieArrayManager?
 
 
 }

@@ -22,8 +22,14 @@ class MoviesTests: XCTestCase {
     }
     
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let fm = FileManager.default
+        do {
+            let attr = try fm.attributesOfItem(atPath: "/etc/newsyslog.conf")
+            let x = attr[FileAttributeKey.modificationDate] as! Date
+            print("Modification Date: \(attr[FileAttributeKey.modificationDate] ?? "Hello")")
+        } catch {
+            
+        }
     }
     
     func testPerformanceExample() {
