@@ -7,11 +7,21 @@
 //
 
 import UIKit
+import CoreData
 
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var movies = MovieArrayManager()
+    var searchResults = [MovieMO]()
+    
+    func fetch() {
+        let fetchRequest:NSFetchRequest<MovieMO> = MovieMO.fetchRequest()
+        do {
+            searchResults = try CoreDataStack.getContext().fetch(fetchRequest)
+        } catch {
+            
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +32,28 @@ class MasterViewController: UITableViewController {
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
+        
+        // code for gesture recognition
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeLeft.direction = .left
+        self.view.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
 
+    }
+    
+    func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        if gesture.direction == UISwipeGestureRecognizerDirection.right {
+            print("Swipe Right")
+            //go to add new movie
+            performSegue(withIdentifier: "addSeque", sender: nil)
+        }
+        else if gesture.direction == UISwipeGestureRecognizerDirection.left {
+            print("Swipe Left")
+            // do nothing because you are at the start already
+        }
     }
     
     func insertNewObject(_ sender: Any) {
@@ -32,6 +63,7 @@ class MasterViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        fetch()
         self.tableView.reloadData()
     }
 
@@ -40,15 +72,13 @@ class MasterViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Segues
+    // MARK:- Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailMovieItem = movies.moviesArray[indexPath.row]
-                controller.movieManagerArray = movies
-                
+                controller.detailMovieItem = searchResults[indexPath.row]
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -56,28 +86,26 @@ class MasterViewController: UITableViewController {
         
         if segue.identifier == "addSeque" {
             let controller = (segue.destination ) as! AddViewController
-            controller.detailItem = movies
-            controller.addType = "add"
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
         }
     }
 
-    // MARK: - Table View
+    // MARK:- Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return objects.count
-        return movies.moviesArray.count
+        return searchResults.count
+        // must return the number of rows
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomMovieClass
         
-        let object = movies.moviesArray[indexPath.row]
+        let object = searchResults[indexPath.row]
         
         cell.year.layer.cornerRadius = 10
         cell.year.layer.masksToBounds = true
@@ -86,8 +114,6 @@ class MasterViewController: UITableViewController {
         cell.year.text = object.year
         cell.rating.text = object.rating
         
-        //let object = objects[indexPath.row] as! NSDate
-        //cell.textLabel!.text = object.description
         return cell
     }
 
@@ -98,13 +124,10 @@ class MasterViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            movies.moviesArray.remove(at: indexPath.row)
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.movies.storeMovieArray()
-                DispatchQueue.main.async {
-                    
-                }
-            }
+            print(searchResults[indexPath.row])
+            CoreDataStack.getContext().delete(self.searchResults[indexPath.row])
+            searchResults.remove(at: indexPath.row)
+            CoreDataStack.saveContext()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.

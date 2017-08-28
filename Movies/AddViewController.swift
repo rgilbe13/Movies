@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AddViewController: UIViewController {
     
@@ -16,49 +17,26 @@ class AddViewController: UIViewController {
     @IBOutlet weak var rating: UITextField!
     @IBOutlet weak var genre: UITextField!
     
-    var movie: Movie?
-    var detailItem: MovieArrayManager?
-    var addType: String = ""
+    var movie: MovieMO = NSEntityDescription.insertNewObject(forEntityName: "Movie", into: CoreDataStack.persistentContainer.viewContext) as! MovieMO
     
     @IBAction func submit() {
-        if addType == "add" {
-            movie = Movie(name: name.text!, year: year.text!, director: director.text!, rating: rating.text!, genre: genre.text!)
-            detailItem?.moviesArray.append(movie!)
-        } else if addType == "edit" {
-            let oldMovie: Movie = movie!
-            movie?.name = name.text
-            movie?.year = year.text
-            movie?.director = director.text
-            movie?.rating = rating.text
-            movie?.genre = genre.text
-            detailItem?.moviesArray.insert(movie!, at: (detailItem?.moviesArray.index(of: oldMovie))!)
-            detailItem?.moviesArray.remove(at: (detailItem?.moviesArray.index(of: oldMovie))!)
-        }
-        
-        // push write file to background thread
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.detailItem?.storeMovieArray()
-            DispatchQueue.main.async {
-                // no ui updates need done
-            }
-        }
-        
-        //detailItem?.storeMovieArray()
-        self.navigationController?.popViewController(animated: true)
+        movie.director = director.text
+        movie.name = name.text
+        movie.year = year.text
+        movie.rating = rating.text
+        movie.genre = genre.text
+        CoreDataStack.saveContext()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        controller.detailMovieItem = movie
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        if let movie = movie {
-            name.text = movie.name
-            year.text = movie.year
-            director.text = movie.director
-            rating.text = movie.rating
-            genre.text = movie.genre
-        }
-    }
+           }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -66,12 +44,30 @@ class AddViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            let controller = segue.destination  as! DetailViewController
-            controller.detailMovieItem = movie
-            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-            controller.navigationItem.leftItemsSupplementBackButton = true
+        let controller = segue.destination  as! DetailViewController
+        controller.detailMovieItem = movie
+        controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        controller.navigationItem.leftItemsSupplementBackButton = true
+    }
+    
+    var detailMovieItem: MovieMO? {
+        didSet {
+            // Update the view.
+            configureView()
         }
     }
+    
+    func configureView() {
+        // Update the user interface for the detail item.
+        if let detail = detailMovieItem {
+            self.title = detail.name
+            name?.text = detail.name
+            year?.text = detail.year
+            director?.text = detail.director
+            rating?.text = detail.rating
+            genre?.text = detail.genre
+        }
+    }
+
 }
 

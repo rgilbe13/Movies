@@ -15,17 +15,21 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var director: UILabel?
     @IBOutlet weak var rating: UILabel?
     @IBOutlet weak var genre: UILabel?
+    
+    var detailMovieItem: MovieMO? {
+        didSet {
+            configureView()
+        }
+    }
 
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = detailMovieItem {
-           self.title = detail.name
-            name?.text = detail.name
-            year?.text = detail.year
-            director?.text = detail.director
-            rating?.text = detail.rating
-            genre?.text = detail.genre
-        }
+        self.title = self.detailMovieItem?.name
+        name?.text = self.detailMovieItem?.name
+        year?.text = self.detailMovieItem?.year
+        director?.text = self.detailMovieItem?.director
+        rating?.text = self.detailMovieItem?.rating
+        genre?.text = self.detailMovieItem?.genre
     }
 
     override func viewDidLoad() {
@@ -40,29 +44,12 @@ class DetailViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editSeque" {
-            let controller = segue.destination as! AddViewController
-            controller.detailItem = movieManagerArray
-            controller.movie = detailMovieItem
-            controller.addType = "edit"
-            
-        }
+        let controller = segue.destination as! AddViewController
+        controller.detailMovieItem = detailMovieItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.configureView()
     }
-
-    var detailMovieItem: Movie? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
-    }
-    
-    var movieManagerArray: MovieArrayManager?
-
-
 }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -72,4 +73,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 // read from web - read in json
 // 3. core data
 // find the file itself - Done
+
+// post to blackboard
+// have to use an icon in project proposal
+// interactive lesson on bb
+// 20 min lesson on getting started with vapor - slides
+// test case with presentation
+// learning objectives
+// add gesture rec - swipe from detail back check assignment pinch swipe right and left erroe case for nothing on the stack
+// apple developer account
+
+
 
